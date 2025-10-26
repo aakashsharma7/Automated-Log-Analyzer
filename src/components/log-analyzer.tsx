@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useMemo, memo } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
@@ -9,7 +9,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { LogAnalysisResults } from '@/components/log-analysis-results'
-import { Upload, FileText, Brain, AlertTriangle, BarChart3, Sparkles, Zap, Search, Command, HelpCircle } from 'lucide-react'
+import { Upload, FileText, Brain, AlertTriangle, BarChart3, Sparkles, Zap, Search, Command } from 'lucide-react'
 import { LogEntry, LogAnalysis, AnomalyDetectionResult, AiRecommendations } from '@/types'
 import { LoadingSpinner, PulseLoader } from '@/components/ui/loading-spinner'
 import { AnimatedTooltip } from '@/components/ui/tooltip'
@@ -18,26 +18,11 @@ import { AlertPanel } from '@/components/ui/alert-panel'
 import { RootCauseAnalysis } from '@/components/ui/root-cause-analysis'
 import { AIInsightsPanel } from '@/components/ui/ai-insights-panel'
 import { useCommandPaletteContext } from '@/components/ui/command-palette-provider'
-import { Onboarding, useOnboarding, FeatureHighlight } from '@/components/ui/onboarding'
 
 export function LogAnalyzer() {
   const { openCommandPalette, setCustomCommands } = useCommandPaletteContext()
   const [mode, setMode] = useState<'parse' | 'anomaly'>('parse')
   
-  // Onboarding state
-  const {
-    isOpen: isOnboardingOpen,
-    currentStep,
-    hasCompleted,
-    openOnboarding,
-    closeOnboarding,
-    nextStep,
-    previousStep,
-    skipOnboarding,
-    completeOnboarding
-  } = useOnboarding()
-  
-  const [showFeatureHighlight, setShowFeatureHighlight] = useState(false)
   const [files, setFiles] = useState<File[]>([])
   const [content, setContent] = useState('')
   const [format, setFormat] = useState('auto')
@@ -61,8 +46,8 @@ export function LogAnalyzer() {
   const [aiInsights, setAiInsights] = useState<any[]>([])
   const [showProactiveFeatures, setShowProactiveFeatures] = useState(false)
 
-  // Custom commands for the log analyzer
-  const customCommands = [
+  // Custom commands for the log analyzer - memoized to prevent unnecessary re-renders
+  const customCommands = useMemo(() => [
     {
       id: 'switch-to-parse-mode',
       title: 'Switch to Parse Mode',
@@ -117,195 +102,14 @@ export function LogAnalyzer() {
       keywords: ['proactive', 'features', 'toggle', 'ai'],
       action: () => setShowProactiveFeatures(!showProactiveFeatures)
     }
-  ]
+  ], [mode, showProactiveFeatures])
 
   // Update custom commands when component mounts or state changes
   React.useEffect(() => {
     setCustomCommands(customCommands)
-  }, [setCustomCommands, mode, files.length, showProactiveFeatures])
+  }, [setCustomCommands, customCommands])
 
-  // Show feature highlight when AI analysis becomes available
-  React.useEffect(() => {
-    if (result && result.rows > 0 && mode === 'parse' && !showFeatureHighlight) {
-      const timer = setTimeout(() => {
-        setShowFeatureHighlight(true)
-      }, 2000) // Show after 2 seconds
-      return () => clearTimeout(timer)
-    }
-  }, [result, mode, showFeatureHighlight])
 
-  // Onboarding steps
-  const onboardingSteps = [
-    {
-      id: 'welcome',
-      title: 'Welcome to Log Analyzer',
-      description: 'Let\'s take a quick tour to help you get started with analyzing your logs effectively.',
-      content: (
-        <div className="space-y-4">
-          <div className="text-center">
-            <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
-              <FileText className="w-8 h-8 text-white" />
-            </div>
-            <h3 className="text-xl font-semibold text-white mb-2">Welcome!</h3>
-            <p className="text-slate-300">
-              This tool helps you analyze log files, detect anomalies, and get AI-powered insights.
-            </p>
-          </div>
-          <div className="grid grid-cols-2 gap-4">
-            <div className="p-3 glass-card rounded-lg text-center">
-              <BarChart3 className="w-6 h-6 text-blue-400 mx-auto mb-2" />
-              <p className="text-sm text-slate-300">Parse & Analyze</p>
-            </div>
-            <div className="p-3 glass-card rounded-lg text-center">
-              <AlertTriangle className="w-6 h-6 text-red-400 mx-auto mb-2" />
-              <p className="text-sm text-slate-300">Detect Anomalies</p>
-            </div>
-          </div>
-        </div>
-      ),
-      skipable: true
-    },
-    {
-      id: 'modes',
-      title: 'Choose Your Analysis Mode',
-      description: 'Switch between parsing logs for insights or detecting anomalies in your data.',
-      content: (
-        <div className="space-y-4">
-          <div className="flex justify-center gap-4">
-            <div className="p-4 glass-card rounded-lg text-center">
-              <BarChart3 className="w-8 h-8 text-green-400 mx-auto mb-2" />
-              <h4 className="font-semibold text-white mb-1">Parse Logs</h4>
-              <p className="text-xs text-slate-400">Extract insights and metrics</p>
-            </div>
-            <div className="p-4 glass-card rounded-lg text-center">
-              <AlertTriangle className="w-8 h-8 text-orange-400 mx-auto mb-2" />
-              <h4 className="font-semibold text-white mb-1">Detect Anomalies</h4>
-              <p className="text-xs text-slate-400">Find unusual patterns</p>
-            </div>
-          </div>
-          <div className="text-center">
-            <p className="text-slate-300 text-sm">
-              Use the mode toggle buttons to switch between analysis types
-            </p>
-          </div>
-        </div>
-      ),
-      target: 'mode-toggle',
-      skipable: true
-    },
-    {
-      id: 'upload',
-      title: 'Upload Your Log Files',
-      description: 'Drag and drop files or paste content directly. Supports .log, .txt, .json, and .csv files.',
-      content: (
-        <div className="space-y-4">
-          <div className="text-center">
-            <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
-              <Upload className="w-8 h-8 text-white" />
-            </div>
-            <h3 className="text-lg font-semibold text-white mb-2">Upload Methods</h3>
-          </div>
-          <div className="grid grid-cols-1 gap-3">
-            <div className="flex items-center gap-3 p-3 glass-card rounded-lg">
-              <div className="w-8 h-8 bg-blue-500/20 rounded-lg flex items-center justify-center">
-                <Upload className="w-4 h-4 text-blue-400" />
-              </div>
-              <div>
-                <p className="text-sm font-medium text-white">Drag & Drop</p>
-                <p className="text-xs text-slate-400">Drop files directly onto the upload area</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-3 p-3 glass-card rounded-lg">
-              <div className="w-8 h-8 bg-purple-500/20 rounded-lg flex items-center justify-center">
-                <FileText className="w-4 h-4 text-purple-400" />
-              </div>
-              <div>
-                <p className="text-sm font-medium text-white">Paste Content</p>
-                <p className="text-xs text-slate-400">Copy and paste log content directly</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      ),
-      target: 'file-upload',
-      skipable: true
-    },
-    {
-      id: 'command-palette',
-      title: 'Command Palette',
-      description: 'Use Ctrl+K to quickly access commands, navigate features, and get help.',
-      content: (
-        <div className="space-y-4">
-          <div className="text-center">
-            <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
-              <Command className="w-8 h-8 text-white" />
-            </div>
-            <h3 className="text-lg font-semibold text-white mb-2">Quick Commands</h3>
-          </div>
-          <div className="grid grid-cols-2 gap-3">
-            <div className="p-3 glass-card rounded-lg text-center">
-              <kbd className="px-2 py-1 bg-slate-700 rounded text-xs text-slate-300">Ctrl+K</kbd>
-              <p className="text-xs text-slate-400 mt-1">Open Commands</p>
-            </div>
-            <div className="p-3 glass-card rounded-lg text-center">
-              <kbd className="px-2 py-1 bg-slate-700 rounded text-xs text-slate-300">Ctrl+1</kbd>
-              <p className="text-xs text-slate-400 mt-1">Parse Mode</p>
-            </div>
-            <div className="p-3 glass-card rounded-lg text-center">
-              <kbd className="px-2 py-1 bg-slate-700 rounded text-xs text-slate-300">Ctrl+2</kbd>
-              <p className="text-xs text-slate-400 mt-1">Anomaly Mode</p>
-            </div>
-            <div className="p-3 glass-card rounded-lg text-center">
-              <kbd className="px-2 py-1 bg-slate-700 rounded text-xs text-slate-300">Ctrl+Enter</kbd>
-              <p className="text-xs text-slate-400 mt-1">Run Analysis</p>
-            </div>
-          </div>
-        </div>
-      ),
-      target: 'command-palette-btn',
-      action: {
-        label: 'Try Command Palette',
-        onClick: openCommandPalette
-      },
-      skipable: true
-    },
-    {
-      id: 'ai-analysis',
-      title: 'AI-Powered Analysis',
-      description: 'Get intelligent insights, root cause analysis, and proactive recommendations.',
-      content: (
-        <div className="space-y-4">
-          <div className="text-center">
-            <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
-              <Brain className="w-8 h-8 text-white" />
-            </div>
-            <h3 className="text-lg font-semibold text-white mb-2">AI Features</h3>
-          </div>
-          <div className="space-y-3">
-            <div className="flex items-center gap-3 p-3 glass-card rounded-lg">
-              <div className="w-8 h-8 bg-green-500/20 rounded-lg flex items-center justify-center">
-                <Brain className="w-4 h-4 text-green-400" />
-              </div>
-              <div>
-                <p className="text-sm font-medium text-white">Smart Recommendations</p>
-                <p className="text-xs text-slate-400">AI analyzes patterns and suggests improvements</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-3 p-3 glass-card rounded-lg">
-              <div className="w-8 h-8 bg-blue-500/20 rounded-lg flex items-center justify-center">
-                <AlertTriangle className="w-4 h-4 text-blue-400" />
-              </div>
-              <div>
-                <p className="text-sm font-medium text-white">Proactive Alerts</p>
-                <p className="text-xs text-slate-400">Get notified about potential issues before they escalate</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      ),
-      skipable: true
-    }
-  ]
 
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
@@ -1014,49 +818,9 @@ export function LogAnalyzer() {
           </div>
         )}
 
-        {/* Onboarding Components */}
-        <Onboarding
-          isOpen={isOnboardingOpen}
-          onClose={closeOnboarding}
-          onComplete={completeOnboarding}
-          steps={onboardingSteps}
-          currentStep={currentStep}
-          onNext={nextStep}
-          onPrevious={previousStep}
-          onSkip={skipOnboarding}
-        />
 
 
-        {/* Feature Highlight */}
-        {showFeatureHighlight && (
-          <FeatureHighlight
-            isVisible={showFeatureHighlight}
-            target="ai-analysis-btn"
-            title="AI Analysis Available"
-            description="Click this button to get AI-powered insights and recommendations for your log analysis."
-            position="top"
-            onClose={() => setShowFeatureHighlight(false)}
-            onAction={() => {
-              setShowFeatureHighlight(false)
-              handleAiAnalysis()
-            }}
-            actionLabel="Run AI Analysis"
-          />
-        )}
 
-        {/* Help Button */}
-        {!hasCompleted && (
-          <div className="fixed bottom-6 left-6 z-40">
-            <Button
-              onClick={openOnboarding}
-              variant="premium"
-              size="lg"
-              className="rounded-full w-14 h-14 shadow-2xl hover-soft-scale animate-bounce-soft"
-            >
-              <HelpCircle className="w-6 h-6" />
-            </Button>
-          </div>
-        )}
 
 
     </div>
