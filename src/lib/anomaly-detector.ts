@@ -20,6 +20,7 @@ export class AnomalyDetector {
   private nEstimators: number = 100
   private maxSamples: number = 256
   private maxFeatures: number = 1.0
+  private maxDepth: number = 10
   private isFitted: boolean = false
   private featureNames: string[] = []
   private scaler: { mean: number[]; std: number[] } | null = null
@@ -337,9 +338,9 @@ export class AnomalyDetector {
       }
     }
 
-    const summary = {
+    const summary: any = {
       totalAnomalies: anomalies.length,
-      anomalyTypes: this.groupBy(anomalies, 'anomalyType'),
+      anomalyTypes: this.groupBy(anomalies as any[], 'anomalyType'),
       topSources: this.groupBy(anomalies, 'source'),
       severityDistribution: this.groupBy(anomalies, 'level')
     }
