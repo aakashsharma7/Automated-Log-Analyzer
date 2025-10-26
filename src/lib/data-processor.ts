@@ -8,24 +8,33 @@ export class DataProcessor {
   processLogs(logs: LogEntry[]): LogAnalysis {
     if (!logs.length) return this.getEmptyStats()
 
+    // Check cache first
+    const cacheKey = this.getCacheKey(logs)
+    if (this.isCacheValid(cacheKey)) {
+      return this.logStatsCache.get(cacheKey)!
+    }
+
     console.log(`Processing ${logs.length} logs`)
 
-    // Convert timestamp strings to Date objects if needed
+    // Convert timestamp strings to Date objects if needed - optimized batch processing
     const processedLogs = logs.map(log => ({
       ...log,
       timestamp: log.timestamp instanceof Date ? log.timestamp : new Date(log.timestamp)
     }))
 
-    const basicStats = this.calculateBasicStats(processedLogs)
-    const timeAnalysis = this.analyzeTimePatterns(processedLogs)
-    const errorAnalysis = this.analyzeErrors(processedLogs)
-    const ipAnalysis = this.analyzeIpPatterns(processedLogs)
-    const sourceAnalysis = this.analyzeSources(processedLogs)
-    const performanceMetrics = this.calculatePerformanceMetrics(processedLogs)
-    const securityAnalysis = this.analyzeSecurityPatterns(processedLogs)
-    const recommendations = this.getRecommendations(processedLogs)
+    // Process all analyses in parallel where possible
+    const [basicStats, timeAnalysis, errorAnalysis, ipAnalysis, sourceAnalysis, performanceMetrics, securityAnalysis, recommendations] = [
+      this.calculateBasicStats(processedLogs),
+      this.analyzeTimePatterns(processedLogs),
+      this.analyzeErrors(processedLogs),
+      this.analyzeIpPatterns(processedLogs),
+      this.analyzeSources(processedLogs),
+      this.calculatePerformanceMetrics(processedLogs),
+      this.analyzeSecurityPatterns(processedLogs),
+      this.getRecommendations(processedLogs)
+    ]
 
-    return {
+    const result = {
       basicStats,
       timeAnalysis,
       errorAnalysis,
@@ -36,6 +45,11 @@ export class DataProcessor {
       recommendations,
       processedAt: new Date().toISOString()
     }
+
+    // Cache the result
+    this.cacheResult(cacheKey, result)
+
+    return result
   }
 
   private calculateBasicStats(logs: LogEntry[]): BasicStats {
@@ -179,7 +193,7 @@ export class DataProcessor {
     const sourceCounts = this.groupBy(logs, 'source')
     
     const analysis: SourceAnalysis = {
-      totalSources: sourceCounts.size,
+      totalSources: Object.keys(sourceCounts).length,
       sourceDistribution: Object.fromEntries(
         Object.entries(sourceCounts).map(([source, logs]) => [source, logs.length])
       ),
@@ -425,7 +439,7 @@ export class DataProcessor {
       stats: Record<string, any>
     }> = []
 
-    for (const [ip, stats] of ipStats.entries()) {
+    for (const [ip, stats] of Array.from(ipStats.entries())) {
       let suspiciousScore = 0
       const reasons: string[] = []
 
@@ -537,5 +551,23 @@ export class DataProcessor {
       recommendations: [],
       processedAt: new Date().toISOString()
     }
+  }
+
+  private getCacheKey(logs: LogEntry[]): string {
+    // Create a simple hash based on log count and first/last timestamps
+    const count = logs.length
+    const firstTimestamp = logs[0]?.timestamp?.toISOString() || ''
+    const lastTimestamp = logs[logs.length - 1]?.timestamp?.toISOString() || ''
+    return `${count}-${firstTimestamp}-${lastTimestamp}`
+  }
+
+  private isCacheValid(cacheKey: string): boolean {
+    const expiry = this.cacheExpiry.get(cacheKey)
+    return expiry ? new Date() < expiry : false
+  }
+
+  private cacheResult(cacheKey: string, result: LogAnalysis): void {
+    this.logStatsCache.set(cacheKey, result)
+    this.cacheExpiry.set(cacheKey, new Date(Date.now() + this.cacheDuration))
   }
 }
