@@ -1,0 +1,85 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Log {
+  id           Int      @id @default(autoincrement())
+  timestamp    DateTime
+  level        String?
+  source       String?
+  message      String?
+  ipAddress    String?  @map("ip_address")
+  statusCode   Int?     @map("status_code")
+  responseSize Int?     @map("response_size")
+  userAgent    String?  @map("user_agent")
+  method       String?
+  url          String?
+  protocol     String?
+  hostname     String?
+  service      String?
+  rawLog       String   @map("raw_log")
+  jsonData     Json?    @map("json_data")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  anomalies Anomaly[]
+
+  @@map("logs")
+}
+
+model Anomaly {
+  id           Int      @id @default(autoincrement())
+  logId        Int      @map("log_id")
+  anomalyScore Float    @map("anomaly_score")
+  anomalyType  String   @map("anomaly_type")
+  isResolved   Boolean  @default(false) @map("is_resolved")
+  detectedAt   DateTime @default(now()) @map("detected_at")
+  resolvedAt   DateTime? @map("resolved_at")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  log Log @relation(fields: [logId], references: [id], onDelete: Cascade)
+
+  @@map("anomalies")
+}
+
+model LogStats {
+  id              Int      @id @default(autoincrement())
+  date            DateTime @db.Date
+  totalLogs       Int      @map("total_logs")
+  errorCount      Int      @map("error_count")
+  warningCount    Int      @map("warning_count")
+  infoCount       Int      @map("info_count")
+  uniqueIps       Int      @map("unique_ips")
+  avgResponseTime Float?   @map("avg_response_time")
+  avgResponseSize Float?   @map("avg_response_size")
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  @@unique([date])
+  @@map("log_stats")
+}
+
+model AiAnalysis {
+  id              Int      @id @default(autoincrement())
+  logId           Int?     @map("log_id")
+  analysisType    String   @map("analysis_type") // 'recommendation', 'summary', 'anomaly_explanation'
+  prompt          String
+  response        String
+  model           String   // 'openai', 'gemini', 'custom'
+  confidence      Float?
+  processingTime  Int?     @map("processing_time") // milliseconds
+  createdAt       DateTime @default(now()) @map("created_at")
+
+  @@map("ai_analyses")
+}
