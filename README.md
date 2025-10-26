@@ -1,328 +1,280 @@
 # Automated Log Analyzer
 
-A comprehensive log analysis application built with Python FastAPI backend and React frontend that provides intelligent parsing, analysis, and visualization of system and application logs in real-time.
+A modern, AI-powered log analysis application built with Next.js, TypeScript, and Tailwind CSS. Features intelligent parsing, anomaly detection, progressive disclosure UI, and comprehensive analytics with a premium dark theme and micro-animations.
 
-## Features
+## ✨ Features
+
+### 🎨 **Modern UI/UX**
+- **Premium Dark Theme**: Sophisticated dark color scheme with glassmorphism effects
+- **Micro-animations**: Smooth hover effects, transitions, and interactive feedback
+- **Progressive Disclosure**: Show simple summaries by default with expandable details
+- **Responsive Design**: Optimized for desktop, tablet, and mobile devices
+- **Command Palette**: Universal search and quick actions (Ctrl+K)
 
 ### 🔍 **Intelligent Log Parsing**
 - **Multi-format Support**: Apache, Nginx, Syslog, JSON, and custom log formats
 - **Auto-detection**: Automatically detects log format from content
-- **Regex & JSON Parsing**: Advanced parsing capabilities for structured and unstructured logs
-- **Real-time Processing**: Process logs as they arrive
+- **Drag & Drop**: Upload multiple files with visual feedback
+- **Paste Content**: Direct text input for quick analysis
+- **Real-time Processing**: Process logs instantly in the browser
 
 ### 📊 **Advanced Analytics**
 - **Statistical Analysis**: Comprehensive log statistics and metrics
-- **Time-based Analysis**: Hourly, daily, and trend analysis
-- **Error Analysis**: Error rate tracking and pattern detection
+- **Time-based Analysis**: Hourly, daily, and trend analysis with peak detection
+- **Error Analysis**: Error rate tracking, pattern detection, and source analysis
 - **IP Analysis**: IP address monitoring and suspicious activity detection
 - **Performance Metrics**: Response time, throughput, and resource usage analysis
+- **Security Analysis**: Threat detection and suspicious pattern identification
 
-### ⚠️ **Anomaly Detection**
-- **Machine Learning**: Uses Scikit-learn's Isolation Forest algorithm
-- **Automatic Detection**: Identifies unusual patterns without manual configuration
-- **Multiple Anomaly Types**: Error spikes, unusual time patterns, suspicious IPs, etc.
-- **Real-time Alerts**: Configurable alerting system
+### ⚠️ **AI-Powered Anomaly Detection**
+- **Machine Learning**: Custom Isolation Forest implementation
+- **Multiple Anomaly Types**: Error spikes, unusual time patterns, suspicious IPs, SQL injection attempts
+- **Real-time Detection**: Instant anomaly identification
+- **Detailed Classification**: Categorized anomaly types with explanations
+- **Configurable Thresholds**: Adjustable sensitivity settings
+
+### 🤖 **AI-Powered Insights**
+- **Smart Recommendations**: AI-generated fix suggestions based on log patterns
+- **Root Cause Analysis**: Intelligent analysis of underlying issues
+- **Proactive Alerting**: Contextual notifications and recommendations
+- **Pattern Recognition**: Advanced pattern detection and correlation
 
 ### 📈 **Interactive Visualizations**
-- **Plotly Integration**: Interactive charts and graphs
+- **Dynamic Charts**: Interactive visualizations with smooth animations
 - **Real-time Dashboards**: Live monitoring with auto-refresh
-- **Multiple Chart Types**: Line charts, bar charts, pie charts, heatmaps, and more
-- **Customizable Views**: Filter by date, log level, source, etc.
+- **Multiple Chart Types**: Line charts, bar charts, pie charts, and more
+- **Progressive Disclosure**: Show/hide charts based on user preference
 
-### 🗄️ **Data Storage**
-- **PostgreSQL Integration**: Robust database storage for structured logs
-- **Efficient Indexing**: Optimized queries with proper database indexes
-- **Data Persistence**: Long-term storage and historical analysis
-- **Backup & Recovery**: Database backup and restore capabilities
+### 🎛️ **Progressive Disclosure System**
+- **Complexity Levels**: Basic, Intermediate, and Advanced information tiers
+- **Collapsible Sections**: Expandable content areas with smooth animations
+- **Summary Cards**: Quick overview metrics with trend indicators
+- **Visibility Toggles**: Show/hide detailed information as needed
+- **Information Hierarchy**: Prevents information overload while keeping power features accessible
 
-### 🔄 **Real-time Monitoring**
-- **File System Monitoring**: Watch log files for changes using watchdog
-- **Live Processing**: Process new log entries as they arrive
-- **Performance Tracking**: Monitor processing performance and bottlenecks
-- **Alert System**: Real-time notifications for critical events
-
-## Installation
+## 🚀 Quick Start
 
 ### Prerequisites
 
-- Python 3.8 or higher
-- PostgreSQL 12 or higher
-- Git
+- Node.js 18+ 
+- npm or yarn
+- Modern web browser
 
-### Setup Instructions
+### Installation
 
 1. **Clone the repository**
    ```bash
    git clone <repository-url>
-   cd Automated-Log-Analyzer
+   cd Automate-log
    ```
 
-2. **Create a virtual environment**
+2. **Install dependencies**
    ```bash
-   python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
-   ```
-
-3. **Install backend dependencies**
-   ```bash
-   cd backend
-   pip install -r requirements.txt
-   cd ..
-   ```
-
-4. **Install frontend dependencies**
-   ```bash
-   cd frontend
    npm install
-   cd ..
    ```
 
-5. **Set up PostgreSQL database** (optional)
+3. **Start the development server**
    ```bash
-   # Create database
-   createdb log_analyzer
-   
-   # Create user (optional)
-   createuser -P log_analyzer_user
-   ```
-
-6. **Configure environment variables** (optional)
-   ```bash
-   # Edit backend/config.py with your database credentials
-   # The app will work without database connection
-   ```
-
-7. **Run the application**
-
-   **Option 1: Run from root directory**
-   ```bash
-   python run_server.py
-   ```
-
-   **Option 2: Run from backend directory**
-   ```bash
-   cd backend
-   python run.py
-   ```
-
-   **Option 3: Run with uvicorn directly**
-   ```bash
-   cd backend
-   uvicorn server:app --host 0.0.0.0 --port 8000 --reload
-   ```
-
-8. **Start the frontend development server** (in a new terminal)
-   ```bash
-   cd frontend
    npm run dev
    ```
 
-9. **Access the application**
-   - Backend API: http://localhost:8000
-   - API Documentation: http://localhost:8000/docs
-   - Frontend: http://localhost:5173 (dev) or http://localhost:8000/app (production)
+4. **Open your browser**
+   Navigate to [http://localhost:3000](http://localhost:3000)
 
-## Usage
+## 📖 Usage
 
 ### 1. Upload & Parse Logs
 
-- **File Upload**: Upload log files (.log, .txt, .json)
+- **File Upload**: Drag and drop log files (.log, .txt, .json, .csv)
 - **Paste Content**: Paste log content directly into the text area
 - **Format Selection**: Choose log format or use auto-detection
 - **Parse**: Click "Parse Logs" to process the data
 
-### 2. Dashboard Analysis
-
-- **Filter Options**: Filter by date range, log level, source
-- **Interactive Charts**: Explore data with various visualizations
-- **Metrics Overview**: View key performance indicators
-- **Export Data**: Download processed data and reports
-
-### 3. Real-time Monitoring
-
-- **Start Monitoring**: Begin real-time log file monitoring
-- **Live Metrics**: View real-time statistics and trends
-- **Alert Management**: Configure and manage alerts
-- **Performance Tracking**: Monitor system performance
-
-### 4. Anomaly Detection
+### 2. Anomaly Detection
 
 - **Configure Settings**: Set contamination rate and thresholds
-- **Run Detection**: Execute anomaly detection algorithm
-- **Review Results**: Analyze detected anomalies
+- **Run Detection**: Click "Detect Anomalies" to find unusual patterns
+- **Review Results**: Analyze detected anomalies with detailed breakdowns
 - **Investigate**: Drill down into specific anomaly details
 
-### 5. Settings Configuration
+### 3. AI Analysis
 
-- **Database Settings**: Configure database connection
-- **Application Settings**: Set log levels, cache duration, etc.
-- **Alert Thresholds**: Configure alerting parameters
-- **System Information**: View system and dependency versions
+- **Smart Insights**: Get AI-powered recommendations after parsing
+- **Root Cause Analysis**: Understand the underlying issues
+- **Proactive Alerts**: Receive contextual notifications
+- **Pattern Recognition**: Discover hidden patterns in your logs
 
-## Configuration
+### 4. Progressive Disclosure
 
-### Database Configuration
+- **Basic Level**: Essential metrics always visible
+- **Intermediate Level**: Important details collapsed by default
+- **Advanced Level**: Technical details hidden by default
+- **Customize View**: Show/hide sections based on your needs
 
-The application uses PostgreSQL for data storage. Configure the following parameters in your `.env` file:
+### 5. Command Palette
+
+- **Quick Access**: Press `Ctrl+K` to open command palette
+- **Search Commands**: Find and execute actions quickly
+- **Keyboard Shortcuts**: Navigate efficiently with keyboard
+- **Contextual Actions**: Commands adapt to current state
+
+## 🎨 UI Components
+
+### Core Components
+- **ProgressiveDisclosure**: Main wrapper with expandable content
+- **CollapsibleSection**: Card-based sections with smooth animations
+- **SummaryCard**: Compact metric cards with trend indicators
+- **ExpandableDetails**: Show/hide detailed information
+- **VisibilityToggle**: Toggle content visibility
+- **ProgressiveTabs**: Tabbed interface with complexity levels
+
+### Animation System
+- **Hover Effects**: Soft scaling, shadow lift, border glow
+- **Transitions**: Smooth fade, slide, and scale animations
+- **Micro-interactions**: Button feedback, loading states
+- **Staggered Animations**: Sequential element animations
+
+## 🛠️ Technical Stack
+
+### Frontend
+- **Next.js 14**: React framework with App Router
+- **TypeScript**: Type-safe development
+- **Tailwind CSS**: Utility-first styling
+- **Radix UI**: Accessible component primitives
+- **Lucide React**: Beautiful icons
+- **React Dropzone**: File upload handling
+
+### Backend Processing
+- **Custom Log Parser**: Multi-format log parsing
+- **Anomaly Detection**: Isolation Forest algorithm
+- **Data Processing**: Statistical analysis and metrics
+- **AI Analysis**: Pattern recognition and recommendations
+
+### Styling & Animations
+- **Tailwind CSS**: Responsive design system
+- **Custom Animations**: Keyframe-based animations
+- **Glassmorphism**: Frosted glass effects
+- **Gradient Themes**: Dynamic color schemes
+
+## 📁 Project Structure
+
+```
+src/
+├── app/                    # Next.js App Router
+│   ├── api/               # API routes
+│   ├── globals.css        # Global styles
+│   ├── layout.tsx         # Root layout
+│   └── page.tsx           # Home page
+├── components/            # React components
+│   ├── ui/               # Reusable UI components
+│   │   ├── button.tsx
+│   │   ├── card.tsx
+│   │   ├── progressive-disclosure.tsx
+│   │   └── ...
+│   ├── log-analyzer.tsx  # Main analyzer component
+│   ├── log-analysis-results.tsx
+│   └── ...
+├── lib/                  # Utility libraries
+│   ├── log-parser.ts     # Log parsing logic
+│   ├── anomaly-detector.ts
+│   ├── data-processor.ts
+│   └── utils.ts
+└── types/                # TypeScript definitions
+    └── index.ts
+```
+
+## 🎯 Key Features Explained
+
+### Progressive Disclosure
+The application uses a sophisticated progressive disclosure system to prevent information overload:
+
+- **Basic Level (Green)**: Essential information always visible
+- **Intermediate Level (Yellow)**: Important details collapsed by default  
+- **Advanced Level (Red)**: Technical details hidden by default
+
+### Anomaly Detection
+Custom implementation of the Isolation Forest algorithm:
+
+- **Feature Engineering**: 20+ features extracted from log entries
+- **Normalization**: Z-score normalization for consistent analysis
+- **Classification**: Automatic anomaly type classification
+- **Configurable**: Adjustable contamination rate and thresholds
+
+### AI-Powered Analysis
+Intelligent insights and recommendations:
+
+- **Pattern Recognition**: Advanced pattern detection
+- **Root Cause Analysis**: Understanding underlying issues
+- **Proactive Alerting**: Contextual notifications
+- **Smart Recommendations**: AI-generated fix suggestions
+
+## 🚀 Deployment
+
+### Vercel (Recommended)
+1. Push code to GitHub
+2. Connect repository to Vercel
+3. Deploy automatically
+
+### Docker
+```bash
+docker build -t log-analyzer .
+docker run -p 3000:3000 log-analyzer
+```
+
+### Static Export
+```bash
+npm run build
+npm run export
+```
+
+## 🔧 Configuration
+
+### Environment Variables
+Create a `.env.local` file:
 
 ```env
-DB_HOST=localhost
-DB_PORT=5432
-DB_NAME=log_analyzer
-DB_USER=postgres
-DB_PASSWORD=your_password
+# Optional: Add any required environment variables
+NEXT_PUBLIC_APP_NAME="Log Analyzer"
 ```
 
-### Application Settings
+### Customization
+- **Themes**: Modify colors in `tailwind.config.js`
+- **Animations**: Adjust timing in `globals.css`
+- **Components**: Customize UI components in `src/components/ui/`
 
-Key configuration options in `config.py`:
+## 📊 Performance
 
-- `LOG_LEVEL`: Logging level (DEBUG, INFO, WARNING, ERROR)
-- `MAX_LOG_SIZE_MB`: Maximum log file size for processing
-- `ANOMALY_THRESHOLD`: Default anomaly detection threshold
+- **Client-side Processing**: All analysis happens in the browser
+- **Optimized Bundles**: Next.js automatic code splitting
+- **Efficient Rendering**: React 18 concurrent features
+- **Smooth Animations**: 60fps animations with CSS transforms
 
-### Alert Thresholds
-
-Configure alert thresholds for:
-- Error rate percentage
-- Log volume (logs per minute)
-- Anomaly count
-- Response time
-
-## API Reference
-
-### LogParser Class
-
-```python
-from log_parser import LogParser
-
-parser = LogParser()
-logs_df = parser.parse_logs(log_lines, log_format)
-```
-
-### AnomalyDetector Class
-
-```python
-from anomaly_detector import AnomalyDetector
-
-detector = AnomalyDetector(contamination=0.1)
-detector.fit(logs_df)
-anomalies = detector.detect_anomalies(logs_df)
-```
-
-### DatabaseManager Class
-
-```python
-from database import DatabaseManager
-
-db = DatabaseManager()
-db.insert_logs(logs_df)
-logs = db.get_logs(start_date, end_date)
-```
-
-## Deployment
-
-### Local Deployment
-
-1. **Development Mode**
-   ```bash
-   streamlit run app.py
-   ```
-
-2. **Production Mode**
-   ```bash
-   streamlit run app.py --server.port 8501 --server.address 0.0.0.0
-   ```
-
-### Docker Deployment
-
-1. **Create Dockerfile**
-   ```dockerfile
-   FROM python:3.9-slim
-   
-   WORKDIR /app
-   COPY requirements.txt .
-   RUN pip install -r requirements.txt
-   
-   COPY . .
-   EXPOSE 8501
-   
-   CMD ["streamlit", "run", "app.py", "--server.port=8501", "--server.address=0.0.0.0"]
-   ```
-
-2. **Build and run**
-   ```bash
-   docker build -t log-analyzer .
-   docker run -p 8501:8501 log-analyzer
-   ```
-
-### Cloud Deployment
-
-#### Streamlit Cloud
-
-1. Push your code to GitHub
-2. Connect your repository to Streamlit Cloud
-3. Configure environment variables
-4. Deploy
-
-#### AWS/GCP/Azure
-
-1. Set up a virtual machine or container service
-2. Install dependencies
-3. Configure database connection
-4. Deploy using your preferred method
-
-## Troubleshooting
-
-### Common Issues
-
-1. **Database Connection Error**
-   - Verify PostgreSQL is running
-   - Check database credentials
-   - Ensure database exists
-
-2. **Memory Issues**
-   - Reduce `MAX_LOG_SIZE_MB` in config
-   - Process logs in smaller batches
-   - Increase system memory
-
-3. **Performance Issues**
-   - Enable database indexing
-   - Use connection pooling
-   - Optimize query patterns
-
-### Log Files
-
-Check application logs for debugging:
-- Streamlit logs: `~/.streamlit/logs/`
-- Application logs: Configured in logging setup
-
-## Contributing
+## 🤝 Contributing
 
 1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-## License
+## 📝 License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Support
+## 🙏 Acknowledgments
 
-For support and questions:
-- Create an issue on GitHub
-- Check the documentation
-- Review the troubleshooting section
+- **Next.js Team** for the amazing React framework
+- **Tailwind CSS** for the utility-first CSS framework
+- **Radix UI** for accessible component primitives
+- **Lucide** for beautiful icons
+- **Vercel** for deployment platform
 
-## Roadmap
+## 📞 Support
 
-- [ ] Additional log format support
-- [ ] Machine learning model improvements
-- [ ] Advanced alerting system
-- [ ] API endpoints for external integration
-- [ ] Mobile-responsive design
-- [ ] Multi-tenant support
-- [ ] Advanced security features
-- [ ] Performance optimization
+- **GitHub Issues**: Report bugs and request features
+- **Documentation**: Check this README and code comments
+- **Community**: Join discussions in GitHub Discussions
+
+---
+
+**Built with ❤️ using Next.js, TypeScript, and Tailwind CSS**
