@@ -194,7 +194,7 @@ export class LogParser {
       level,
       source: 'custom',
       message: line.trim(),
-      ipAddress,
+      ipAddress: ipAddress || undefined,
       rawLog: line
     }
   }
