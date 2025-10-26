@@ -1,6 +1,7 @@
 'use client'
 
 import * as React from "react"
+import { memo } from "react"
 import { ChevronDown, ChevronRight, Eye, EyeOff, Info, MoreHorizontal } from "lucide-react"
 import { Button } from "./button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./card"
@@ -19,7 +20,7 @@ interface ProgressiveDisclosureProps {
   onToggle?: (expanded: boolean) => void
 }
 
-export function ProgressiveDisclosure({
+export const ProgressiveDisclosure = memo(function ProgressiveDisclosure({
   children,
   className,
   defaultExpanded = false,
@@ -93,7 +94,7 @@ export function ProgressiveDisclosure({
       </div>
     </div>
   )
-}
+})
 
 interface CollapsibleSectionProps {
   title: string
