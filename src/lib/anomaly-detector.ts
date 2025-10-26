@@ -97,6 +97,20 @@ export class AnomalyDetector {
 
   private prepareFeatures(logs: LogEntry[]): number[][] {
     const features: number[][] = []
+    
+    // Pre-compute IP counts for better performance
+    const ipCounts = new Map<string, number>()
+    for (const log of logs) {
+      if (log.ipAddress) {
+        ipCounts.set(log.ipAddress, (ipCounts.get(log.ipAddress) || 0) + 1)
+      }
+    }
+
+    // Pre-compute regex patterns for better performance
+    const errorPattern = /(error|exception|fail|timeout|denied)/i
+    const sqlPattern = /(select|insert|update|delete|sql)/i
+    const httpPattern = /(http|request|response|api)/i
+    const specialCharPattern = /[<>"']/
 
     for (const log of logs) {
       const featureVector: number[] = []
@@ -123,27 +137,28 @@ export class AnomalyDetector {
       featureVector.push(responseSize)
       featureVector.push(Math.log1p(responseSize))
 
-      // IP address features (simplified)
-      const ipCount = logs.filter(l => l.ipAddress === log.ipAddress).length
+      // IP address features (optimized)
+      const ipCount = log.ipAddress ? (ipCounts.get(log.ipAddress) || 0) : 0
       featureVector.push(ipCount)
 
-      // Message-based features
+      // Message-based features (optimized with pre-compiled regex)
       const message = log.message || ''
+      const messageLower = message.toLowerCase()
       featureVector.push(message.length)
       featureVector.push(message.split(' ').length)
-      featureVector.push(message.toLowerCase().includes('error') || message.toLowerCase().includes('exception') || message.toLowerCase().includes('fail') || message.toLowerCase().includes('timeout') || message.toLowerCase().includes('denied') ? 1 : 0)
-      featureVector.push(message.toLowerCase().includes('select') || message.toLowerCase().includes('insert') || message.toLowerCase().includes('update') || message.toLowerCase().includes('delete') || message.toLowerCase().includes('sql') ? 1 : 0)
-      featureVector.push(message.toLowerCase().includes('http') || message.toLowerCase().includes('request') || message.toLowerCase().includes('response') || message.toLowerCase().includes('api') ? 1 : 0)
+      featureVector.push(errorPattern.test(messageLower) ? 1 : 0)
+      featureVector.push(sqlPattern.test(messageLower) ? 1 : 0)
+      featureVector.push(httpPattern.test(messageLower) ? 1 : 0)
 
       // Source features (simplified hash)
       const sourceHash = this.hashString(log.source || 'unknown')
       featureVector.push(sourceHash)
 
-      // URL features
+      // URL features (optimized)
       const url = log.url || ''
       featureVector.push(url.length)
       featureVector.push(url.includes('?') ? 1 : 0)
-      featureVector.push(/[<>"']/.test(url) ? 1 : 0)
+      featureVector.push(specialCharPattern.test(url) ? 1 : 0)
 
       // Method features
       const methodMapping: Record<string, number> = { 'GET': 1, 'POST': 2, 'PUT': 3, 'DELETE': 4, 'PATCH': 5 }
