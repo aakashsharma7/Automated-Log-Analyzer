@@ -94,8 +94,8 @@ export function LogAnalysisResults({
                     {(stats.basicStats.errorRate || 0).toFixed(1)}%
                   </p>
                   <p className="text-xs text-slate-500 mt-1">
-                    {stats.basicStats.errorRate > 5 ? 'High - Needs attention' : 
-                     stats.basicStats.errorRate > 1 ? 'Moderate - Monitor closely' : 'Low - Healthy'}
+                    {(stats.basicStats.errorRate || 0) > 5 ? 'High - Needs attention' : 
+                     (stats.basicStats.errorRate || 0) > 1 ? 'Moderate - Monitor closely' : 'Low - Healthy'}
                   </p>
                 </div>
                 <div className="w-12 h-12 bg-gradient-to-r from-red-500 to-pink-500 rounded-xl flex items-center justify-center shadow-lg hover-soft-scale">
@@ -163,11 +163,14 @@ export function LogAnalysisResults({
                       Top Error Sources
                     </h4>
                     <div className="space-y-2">
-                      {stats.errorAnalysis.topErrorSources.slice(0, 3).map((source, index) => (
+                      {Object.entries(stats.errorAnalysis.topErrorSources)
+                        .sort(([,a], [,b]) => b - a)
+                        .slice(0, 3)
+                        .map(([source, count], index) => (
                         <div key={index} className="flex items-center justify-between p-3 glass-card rounded-lg">
-                          <span className="text-sm text-slate-300">{source.source}</span>
+                          <span className="text-sm text-slate-300">{source}</span>
                           <Badge variant="destructive" className="text-xs">
-                            {source.count} errors
+                            {count} errors
                           </Badge>
                         </div>
                       ))}
@@ -176,14 +179,14 @@ export function LogAnalysisResults({
                 )}
 
                 {/* Peak Activity Times */}
-                {stats.temporalAnalysis?.hourlyDistribution && (
+                {stats.timeAnalysis?.hourlyDistribution && (
                   <div className="space-y-3">
                     <h4 className="font-semibold text-white flex items-center gap-2">
                       <Clock className="w-4 h-4 text-blue-400" />
                       Peak Activity Hours
                     </h4>
                     <div className="space-y-2">
-                      {Object.entries(stats.temporalAnalysis.hourlyDistribution)
+                      {Object.entries(stats.timeAnalysis.hourlyDistribution)
                         .sort(([,a], [,b]) => b - a)
                         .slice(0, 3)
                         .map(([hour, count]) => (
