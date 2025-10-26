@@ -87,6 +87,20 @@ export default function RootLayout({
                     </div> */}
                       </div>
                     </div>
+                    {/* Centered Built with Heart */}
+                    <div className="mt-6 text-center">
+                      <p className="text-slate-400 text-sm">
+                        Built with <span className="text-red-500 animate-pulse">❤️</span> by{' '}
+                        <a 
+                          href="https://www.linkedin.com/in/aakash-sharma-dev/" 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="text-blue-400 hover:text-blue-300 hover:underline transition-colors duration-300 hover-soft-scale inline-block"
+                        >
+                          Aakash Sharma
+                        </a>
+                      </p>
+                    </div>
                   </div>
                 </footer>
               </div>
