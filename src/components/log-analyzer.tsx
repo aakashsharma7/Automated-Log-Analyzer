@@ -447,27 +447,23 @@ export function LogAnalyzer() {
   }
 
   return (
-    <div className="container mx-auto max-w-6xl px-4 py-8">
-      <div className="mb-12 animate-fade-in-up">
-        <div className="flex items-center justify-between mb-6">
-          {/* Empty div for spacing */}
-          <div className="flex-1"></div>
+    <div className="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8">
+      <div className="mb-8 sm:mb-12 animate-fade-in-up">
+        <div className="flex flex-col sm:flex-row items-center justify-between mb-4 sm:mb-6 gap-4">
+          {/* Empty div for spacing - hidden on mobile */}
+          <div className="hidden sm:flex flex-1"></div>
           
           {/* Centered Heading */}
-          <div className="flex-1 flex justify-center">
+          <div className="flex-1 flex justify-center order-2 sm:order-1">
             <div className="text-center">
-              <h1 className="text-4xl font-outfit font-bold bg-gradient-to-r from-blue-200 via-purple-200 to-pink-200 bg-clip-text text-transparent animate-gradient-shift tracking-tight hover:from-blue-300 hover:via-purple-300 hover:to-pink-300 transition-all duration-1000 ease-in-out whitespace-nowrap">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl font-outfit font-bold bg-gradient-to-r from-blue-200 via-purple-200 to-pink-200 bg-clip-text text-transparent animate-gradient-shift tracking-tight hover:from-blue-300 hover:via-purple-300 hover:to-pink-300 transition-all duration-1000 ease-in-out">
                 AUTOMATED LOG ANALYZER
               </h1>
-              {/* <div className="flex items-center gap-2 mt-2">
-                <Sparkles className="w-4 h-4 text-yellow-400 animate-pulse" />
-                <span className="text-base text-slate-400 font-poppins font-medium">Powered by Advanced AI</span>
-              </div> */}
             </div>
           </div>
           
           {/* Command Palette Trigger - Right Aligned */}
-          <div className="flex-1 flex justify-end">
+          <div className="flex justify-end order-1 sm:order-2 sm:flex-1">
             <AnimatedTooltip content="Open command palette (Ctrl+K)">
               <Button
                 variant="glass"
@@ -478,14 +474,11 @@ export function LogAnalyzer() {
               >
                 <Command className="w-4 h-4" />
                 <span className="hidden sm:inline">Search</span>
-                {/* <kbd className="hidden sm:inline-flex items-center gap-1 px-2 py-1 bg-slate-700/50 rounded text-xs text-slate-300">
-                  <span className="text-xs">⌘</span>K
-                </kbd> */}
               </Button>
             </AnimatedTooltip>
           </div>
         </div>
-        <p className="text-slate-300 text-lg max-w-3xl mx-auto leading-relaxed mb-8 font-poppins text-center">
+        <p className="text-slate-300 text-sm sm:text-base lg:text-lg max-w-3xl mx-auto leading-relaxed mb-6 sm:mb-8 font-poppins text-center px-4">
           Transform your log data into actionable insights with our 
           <span className="text-blue-400 font-semibold mx-1">AI-powered analysis</span> and 
           <span className="text-purple-400 font-semibold mx-1">intelligent anomaly detection</span>
@@ -513,70 +506,64 @@ export function LogAnalyzer() {
       </div>
 
       {/* Mode Toggle */}
-      <div className="flex justify-center mb-8 animate-slide-in-right">
-        <div className="glass-ultra p-2 rounded-3xl shadow-2xl" data-tour="mode-toggle">
+      <div className="flex justify-center mb-6 sm:mb-8 animate-slide-in-right px-2">
+        <div className="glass-ultra p-1.5 sm:p-2 rounded-2xl sm:rounded-3xl shadow-2xl" data-tour="mode-toggle">
           <Button
             variant={mode === 'parse' ? 'success' : 'ghost'}
             onClick={() => setMode('parse')}
-            className="rounded-2xl px-8 py-4 transition-all duration-300 font-semibold"
+            className="rounded-xl sm:rounded-2xl px-4 sm:px-8 py-3 sm:py-4 transition-all duration-300 font-semibold text-xs sm:text-base"
           >
-            <BarChart3 className="w-5 h-5 mr-3" />
-            Parse Logs
+            <BarChart3 className="w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3" />
+            <span className="hidden xs:inline">Parse </span>Logs
           </Button>
           <Button
             variant={mode === 'anomaly' ? 'warning' : 'ghost'}
             onClick={() => setMode('anomaly')}
-            className="rounded-2xl px-8 py-4 transition-all duration-300 font-semibold"
+            className="rounded-xl sm:rounded-2xl px-4 sm:px-8 py-3 sm:py-4 transition-all duration-300 font-semibold text-xs sm:text-base"
           >
-            <AlertTriangle className="w-5 h-5 mr-3" />
-            Detect Anomalies
+            <AlertTriangle className="w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3" />
+            <span className="hidden xs:inline">Detect </span>Anomalies
           </Button>
         </div>
       </div>
 
       {/* Main Form */}
       <TransitionWrapper animation="fade" delay={200}>
-        <Card className="glass-ultra mb-8 hover-lift animate-scale-in-bounce">
-          <CardHeader className="pb-6">
-            <CardTitle className="flex items-center gap-4 text-2xl font-outfit">
-              <div className={`w-10 h-10 rounded-2xl flex items-center justify-center shadow-lg animate-gradient-shift transition-all duration-500 ${
+        <Card className="glass-ultra mb-6 sm:mb-8 hover-lift animate-scale-in-bounce">
+          <CardHeader className="pb-4 sm:pb-6 px-4 sm:px-6">
+            <CardTitle className="flex items-center gap-3 sm:gap-4 text-xl sm:text-2xl font-outfit">
+              <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl flex items-center justify-center shadow-lg animate-gradient-shift transition-all duration-500 ${
                 mode === 'parse' 
                   ? 'bg-gradient-to-r from-blue-500 via-cyan-500 to-blue-600' 
                   : 'bg-gradient-to-r from-red-500 via-pink-500 to-red-600'
               }`}>
                 {mode === 'parse' ? (
-                  <FileText className="w-5 h-5 text-white" />
+                  <FileText className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                 ) : (
-                  <AlertTriangle className="w-5 h-5 text-white" />
+                  <AlertTriangle className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                 )}
               </div>
               <div>
                 <ModeTransition isActive={mode === 'parse'}>
-                  <div className="text-slate-100 font-bold">
-                    Log Parsing & Analysis
+                  <div className="text-slate-100 font-bold text-lg sm:text-xl">
+                    Log Parsing <span className="hidden sm:inline">& Analysis</span>
                   </div>
                 </ModeTransition>
                 <ModeTransition isActive={mode === 'anomaly'}>
-                  <div className="text-slate-100 font-bold">
+                  <div className="text-slate-100 font-bold text-lg sm:text-xl">
                     Anomaly Detection
                   </div>
                 </ModeTransition>
-                {/* <div className="text-sm text-slate-400 font-poppins font-normal mt-1">
-                  {mode === 'parse' 
-                    ? 'Transform raw logs into actionable insights'
-                    : 'Identify unusual patterns and potential threats'
-                  }
-                </div> */}
               </div>
             </CardTitle>
-            <CardDescription className="text-slate-300 text-base leading-relaxed font-poppins">
+            <CardDescription className="text-slate-300 text-sm sm:text-base leading-relaxed font-poppins mt-2">
               {mode === 'parse' 
-                ? 'Upload log files or paste content to analyze patterns, extract metrics, and get comprehensive insights with AI-powered recommendations'
-                : 'Detect unusual patterns, anomalies, and potential security issues in your logs using advanced machine learning algorithms'
+                ? 'Upload log files or paste content to analyze patterns, extract metrics, and get comprehensive insights'
+                : 'Detect unusual patterns, anomalies, and potential security issues in your logs'
               }
             </CardDescription>
           </CardHeader>
-        <CardContent>
+        <CardContent className="px-4 sm:px-6">
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* File Upload */}
             <TransitionWrapper animation="slide" delay={300}>
