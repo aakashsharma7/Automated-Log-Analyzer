@@ -124,24 +124,24 @@ export function CollapsibleSection({
   return (
     <Card className={cn("glass-card transition-all duration-300 hover-soft-lift", levelConfig[level], className)}>
       <CardHeader 
-        className="cursor-pointer select-none"
+        className="cursor-pointer select-none p-4 sm:p-6"
         onClick={() => setIsExpanded(!isExpanded)}
       >
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
+        <div className="flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2 sm:gap-3 min-w-0">
             {Icon && (
-              <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg flex items-center justify-center">
-                <Icon className="w-4 h-4 text-white" />
+              <div className="w-7 h-7 sm:w-8 sm:h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                <Icon className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
               </div>
             )}
-            <CardTitle className="text-lg font-outfit font-bold text-white">
+            <CardTitle className="text-base sm:text-lg font-outfit font-bold text-white truncate">
               {title}
             </CardTitle>
           </div>
           <Button
             variant="ghost"
             size="sm"
-            className="text-slate-400 hover:text-white hover-soft-scale"
+            className="text-slate-400 hover:text-white hover-soft-scale flex-shrink-0"
           >
             {isExpanded ? (
               <ChevronDown className="w-4 h-4" />
@@ -204,17 +204,17 @@ export function SummaryCard({
       )}
       onClick={onClick}
     >
-      <CardContent className="p-4">
+      <CardContent className="p-3 sm:p-4">
         <div className="flex items-center justify-between">
-          <div>
-            <p className="text-sm font-medium text-slate-400 mb-1">{title}</p>
-            <p className="text-2xl font-bold text-white">{value}</p>
+          <div className="flex-1 min-w-0">
+            <p className="text-xs sm:text-sm font-medium text-slate-400 mb-1">{title}</p>
+            <p className="text-xl sm:text-2xl font-bold text-white">{value}</p>
             {description && (
-              <p className="text-xs text-slate-500 mt-1">{description}</p>
+              <p className="text-xs text-slate-500 mt-1 line-clamp-2">{description}</p>
             )}
           </div>
-          <div className="text-right">
-            <span className={cn("text-lg", trendConfig[trend].color)}>
+          <div className="text-right flex-shrink-0 ml-2">
+            <span className={cn("text-base sm:text-lg", trendConfig[trend].color)}>
               {trendConfig[trend].icon}
             </span>
           </div>
