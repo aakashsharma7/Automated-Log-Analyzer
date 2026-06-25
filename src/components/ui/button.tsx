@@ -4,32 +4,66 @@ import { cva, type VariantProps } from "class-variance-authority"
 
 import { cn } from "@/lib/utils"
 
+/* ─── Bauhaus Terminal Button System ─── */
 const buttonVariants = cva(
-  "inline-flex items-center justify-center whitespace-nowrap rounded-lg text-sm font-medium ring-offset-background transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover-soft-scale active:scale-95",
+  [
+    "inline-flex items-center justify-center whitespace-nowrap",
+    "font-mono text-[11px] font-bold tracking-widest uppercase",
+    "transition-all duration-150",
+    "focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#F5E642]",
+    "disabled:pointer-events-none disabled:opacity-40",
+    "border",
+  ].join(" "),
   {
     variants: {
       variant: {
-        default: "bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg hover:shadow-xl hover:from-blue-700 hover:to-purple-700 animate-gradient-shift hover-glow-soft",
+        /* Primary — yellow block */
+        default:
+          "bg-[#F5E642] text-[#080808] border-[#F5E642] hover:bg-[#FFD700] hover:shadow-[0_0_20px_rgba(245,230,66,0.4)]",
+
+        /* Destructive — red block */
         destructive:
-          "bg-gradient-to-r from-red-600 to-pink-600 text-white shadow-lg hover:shadow-xl hover:from-red-700 hover:to-pink-700 hover-pulse-glow",
+          "bg-[#FF3131] text-white border-[#FF3131] hover:bg-[#CC1A1A] hover:shadow-[0_0_20px_rgba(255,49,49,0.4)]",
+
+        /* Outline — terminal ghost */
         outline:
-          "border border-slate-600 bg-transparent text-slate-200 hover:bg-slate-800/50 hover:text-white hover:border-slate-500 shadow-sm hover:shadow-md hover-border-glow",
+          "bg-transparent text-[#A8A090] border-[#2C2C2C] hover:border-[#F5E642] hover:text-[#F5E642] hover:bg-[rgba(245,230,66,0.05)]",
+
+        /* Secondary */
         secondary:
-          "bg-slate-800 text-slate-200 hover:bg-slate-700 shadow-sm hover:shadow-md hover-soft-lift",
-        ghost: "text-slate-300 hover:bg-slate-800/50 hover:text-white hover-soft-scale",
-        link: "text-blue-400 underline-offset-4 hover:underline hover:text-blue-300 hover-glow-soft",
-        premium: "bg-gradient-to-r from-purple-600 via-blue-600 to-cyan-600 text-white shadow-xl hover:shadow-2xl hover:from-purple-700 hover:via-blue-700 hover:to-cyan-700 animate-gradient-shift hover-glow-gradient",
-        success: "bg-gradient-to-r from-green-600 to-emerald-600 text-white shadow-lg hover:shadow-xl hover:from-green-700 hover:to-emerald-700 hover-soft-lift",
-        warning: "bg-gradient-to-r from-yellow-600 to-orange-600 text-white shadow-lg hover:shadow-xl hover:from-yellow-700 hover:to-orange-700 hover-bounce-soft",
-        glass: "glass-premium text-slate-200 hover:text-white hover:bg-white/10 hover-shimmer",
+          "bg-[#1C1C1C] text-[#A8A090] border-[#2C2C2C] hover:bg-[#242424] hover:text-[#E8E4D0] hover:border-[#3A3A3A]",
+
+        /* Ghost — minimal */
+        ghost:
+          "bg-transparent text-[#666] border-transparent hover:bg-[#1C1C1C] hover:text-[#E8E4D0] hover:border-[#2C2C2C]",
+
+        /* Link */
+        link:
+          "bg-transparent text-[#F5E642] border-transparent underline-offset-4 hover:underline hover:text-[#FF8C00]",
+
+        /* Premium — yellow gradient */
+        premium:
+          "bg-gradient-to-r from-[#F5E642] to-[#FF8C00] text-[#080808] border-transparent hover:shadow-[0_0_24px_rgba(245,230,66,0.4)]",
+
+        /* Success — green outline */
+        success:
+          "bg-transparent text-[#39FF14] border-[#39FF14] hover:bg-[rgba(57,255,20,0.08)] hover:shadow-[0_0_16px_rgba(57,255,20,0.3)]",
+
+        /* Warning — yellow outline */
+        warning:
+          "bg-transparent text-[#F5E642] border-[#F5E642] hover:bg-[rgba(245,230,66,0.08)] hover:shadow-[0_0_16px_rgba(245,230,66,0.3)]",
+
+        /* Glass — now bauhaus surface */
+        glass:
+          "bg-[#141414] text-[#A8A090] border-[#2C2C2C] hover:border-[#3A3A3A] hover:text-[#E8E4D0]",
       },
       size: {
-        default: "h-10 px-4 py-2",
-        sm: "h-9 rounded-md px-3 text-xs",
-        lg: "h-12 rounded-xl px-8 text-base",
-        xl: "h-14 rounded-2xl px-10 text-lg font-semibold",
-        icon: "h-10 w-10",
-        "icon-lg": "h-12 w-12",
+        default: "h-9 px-5 py-2",
+        sm:      "h-7 px-3 text-[9px]",
+        lg:      "h-10 px-7",
+        xl:      "h-12 px-8 text-[12px]",
+        icon:    "h-9 w-9",
+        "icon-lg": "h-10 w-10",
       },
     },
     defaultVariants: {
