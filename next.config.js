@@ -1,8 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    appDir: true,
-  },
   typescript: {
     ignoreBuildErrors: false,
   },
@@ -12,11 +9,6 @@ const nextConfig = {
   images: {
     domains: [],
     formats: ['image/webp', 'image/avif'],
-  },
-  api: {
-    bodyParser: {
-      sizeLimit: '10mb',
-    },
   },
   
   // Performance optimizations
