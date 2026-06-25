@@ -1,6 +1,7 @@
 import * as React from "react"
-
 import { cn } from "@/lib/utils"
+
+/* ─── Bauhaus Terminal Card ─── */
 
 const Card = React.forwardRef<
   HTMLDivElement,
@@ -9,7 +10,7 @@ const Card = React.forwardRef<
   <div
     ref={ref}
     className={cn(
-      "rounded-xl border border-slate-700/50 glass-card text-slate-200 shadow-lg hover:shadow-xl transition-all duration-300 hover-soft-lift hover:border-slate-600/70",
+      "bauhaus-card text-[#E8E4D0] transition-all duration-150",
       className
     )}
     {...props}
@@ -23,7 +24,7 @@ const CardHeader = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn("flex flex-col space-y-2 p-6 pb-4", className)}
+    className={cn("flex flex-col space-y-1.5 p-5 pb-4 border-b border-[#1C1C1C]", className)}
     {...props}
   />
 ))
@@ -36,7 +37,7 @@ const CardTitle = React.forwardRef<
   <h3
     ref={ref}
     className={cn(
-      "text-2xl font-semibold leading-none tracking-tight text-slate-100",
+      "font-display text-base font-bold tracking-tight uppercase text-[#E8E4D0]",
       className
     )}
     {...props}
@@ -50,7 +51,7 @@ const CardDescription = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <p
     ref={ref}
-    className={cn("text-sm text-slate-400 leading-relaxed", className)}
+    className={cn("font-mono text-[10px] text-[#4A4A4A] tracking-wide leading-relaxed", className)}
     {...props}
   />
 ))
@@ -60,7 +61,7 @@ const CardContent = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => (
-  <div ref={ref} className={cn("p-6 pt-0", className)} {...props} />
+  <div ref={ref} className={cn("p-5 pt-4", className)} {...props} />
 ))
 CardContent.displayName = "CardContent"
 
@@ -70,7 +71,10 @@ const CardFooter = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn("flex items-center p-6 pt-0", className)}
+    className={cn(
+      "flex items-center p-5 pt-0 border-t border-[#1C1C1C] mt-2",
+      className
+    )}
     {...props}
   />
 ))
