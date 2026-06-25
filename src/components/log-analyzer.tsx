@@ -188,9 +188,9 @@ export function LogAnalyzer() {
           TOP BAR — Terminal header
           ════════════════════════════════════════ */}
       <header className="border-b border-[#2C2C2C] bg-[#0E0E0E]">
-        {/* Yellow accent line at top */}
+        {/* Accent line at top */}
         <div className="h-0.5 w-full" style={{
-          background: 'linear-gradient(90deg, #F5E642 0%, #FF8C00 30%, transparent 60%)'
+          background: 'linear-gradient(90deg, #39FF14 0%, #00FF9C 30%, transparent 60%)'
         }} />
 
         <div className="px-6 py-3 flex items-center justify-between">
@@ -198,7 +198,7 @@ export function LogAnalyzer() {
           <div className="flex items-center gap-4">
             {/* Bauhaus logo mark */}
             <div className="relative w-8 h-8 flex-shrink-0">
-              <div className="absolute inset-0 bg-[#F5E642]" />
+              <div className="absolute inset-0 bg-[#39FF14]" />
               <div className="absolute bottom-0 right-0 w-4 h-4 bg-[#FF3131]" />
               <div className="absolute top-0 right-0 w-2 h-8 bg-[#0057FF]" />
             </div>
@@ -221,7 +221,7 @@ export function LogAnalyzer() {
                   px-5 py-2 font-mono text-[10px] font-bold tracking-widest uppercase
                   flex items-center gap-2 transition-all duration-150 border-r border-[#2C2C2C]
                   ${isParseMode
-                    ? 'bg-[#F5E642] text-[#080808]'
+                    ? 'bg-[#39FF14] text-[#080808]'
                     : 'text-[#666] hover:text-[#E8E4D0] hover:bg-[#1C1C1C]'
                   }
                 `}
@@ -257,7 +257,7 @@ export function LogAnalyzer() {
               onClick={openCommandPalette}
               className="flex items-center gap-2 px-3 py-1.5 border border-[#2C2C2C] bg-[#141414]
                          font-mono text-[10px] text-[#666] tracking-widest uppercase
-                         hover:border-[#F5E642] hover:text-[#F5E642] transition-all duration-150"
+                         hover:border-[#39FF14] hover:text-[#39FF14] transition-all duration-150"
             >
               <Command className="w-3 h-3" />
               Ctrl+K
@@ -276,7 +276,7 @@ export function LogAnalyzer() {
           <div className="flex items-start gap-6 mb-6">
             {/* Bauhaus geometric left accent */}
             <div className="flex-shrink-0 flex flex-col gap-1 mt-1">
-              <div className="w-2 h-8 bg-[#F5E642]" />
+              <div className="w-2 h-8 bg-[#39FF14]" />
               <div className="w-2 h-4 bg-[#FF3131]" />
               <div className="w-2 h-2 bg-[#0057FF]" />
             </div>
@@ -314,7 +314,7 @@ export function LogAnalyzer() {
           {/* Quick stats pills */}
           <div className="flex flex-wrap gap-2 ml-9">
             {[
-              { label: 'Multi-format', color: '#F5E642' },
+              { label: 'Multi-format', color: '#39FF14' },
               { label: 'Auto-detect', color: '#39FF14' },
               { label: 'AI-powered', color: '#0057FF' },
               { label: 'Real-time', color: '#FF3131' },
@@ -367,7 +367,7 @@ export function LogAnalyzer() {
                   <div className="flex justify-center mb-5">
                     <div className="relative w-14 h-14 flex-shrink-0">
                       <div className={`absolute inset-0 transition-colors duration-150 ${
-                        isDragActive ? 'bg-[#F5E642]' : 'bg-[#1C1C1C] border border-[#2C2C2C]'
+                        isDragActive ? 'bg-[#39FF14]' : 'bg-[#1C1C1C] border border-[#2C2C2C]'
                       }`} />
                       <div className="absolute inset-0 flex items-center justify-center">
                         <Upload className={`w-5 h-5 ${isDragActive ? 'text-[#080808]' : 'text-[#3A3A3A]'}`} />
@@ -381,10 +381,10 @@ export function LogAnalyzer() {
 
                   {isDragActive ? (
                     <div>
-                      <div className="font-display text-base font-bold text-[#F5E642] tracking-tight uppercase mb-1">
+                      <div className="font-display text-base font-bold text-[#39FF14] tracking-tight uppercase mb-1">
                         Drop to Upload
                       </div>
-                      <div className="font-mono text-[10px] text-[#F5E642]/60 tracking-widest">
+                      <div className="font-mono text-[10px] text-[#39FF14]/60 tracking-widest">
                         // release to process
                       </div>
                     </div>
@@ -419,7 +419,7 @@ export function LogAnalyzer() {
                         <div
                           key={index}
                           className="flex items-center gap-2 px-3 py-1.5 bg-[#141414] border border-[#2C2C2C]
-                                     hover:border-[#F5E642] transition-colors duration-150 group"
+                                     hover:border-[#39FF14] transition-colors duration-150 group"
                         >
                           <span className="font-mono text-[10px] text-[#A8A090] group-hover:text-[#E8E4D0] transition-colors">
                             {file.name}
@@ -442,7 +442,7 @@ export function LogAnalyzer() {
               <div className="space-y-2">
                 <div className="term-section-header">Paste Content</div>
                 <div className="relative">
-                  <div className="absolute top-3 left-3 font-mono text-[10px] text-[#F5E642] select-none pointer-events-none">
+                  <div className="absolute top-3 left-3 font-mono text-[10px] text-[#39FF14] select-none pointer-events-none">
                     &gt;
                   </div>
                   <textarea
@@ -477,7 +477,7 @@ export function LogAnalyzer() {
                           py-2.5 px-3 border font-mono text-[10px] tracking-widest uppercase
                           transition-all duration-150 flex flex-col items-center gap-1
                           ${format === value
-                            ? 'border-[#F5E642] bg-[rgba(245,230,66,0.08)] text-[#F5E642]'
+                            ? 'border-[#39FF14] bg-[rgba(57, 255, 20,0.08)] text-[#39FF14]'
                             : 'border-[#2C2C2C] bg-[#141414] text-[#4A4A4A] hover:border-[#3A3A3A] hover:text-[#A8A090]'
                           }
                         `}
@@ -520,7 +520,7 @@ export function LogAnalyzer() {
                         Custom Threshold <span className="text-[#2C2C2C]">(optional)</span>
                       </label>
                       <div className="relative">
-                        <span className="absolute left-3 top-1/2 -translate-y-1/2 font-mono text-[10px] text-[#F5E642]">&gt;</span>
+                        <span className="absolute left-3 top-1/2 -translate-y-1/2 font-mono text-[10px] text-[#39FF14]">&gt;</span>
                         <input
                           type="number"
                           step="0.01"
@@ -551,7 +551,7 @@ export function LogAnalyzer() {
                     border transition-all duration-150 relative overflow-hidden
                     disabled:opacity-40 disabled:cursor-not-allowed
                     ${isParseMode
-                      ? 'bg-[#F5E642] text-[#080808] border-[#F5E642] hover:bg-[#FFD700] hover:shadow-[0_0_24px_rgba(245,230,66,0.4)]'
+                      ? 'bg-[#39FF14] text-[#080808] border-[#39FF14] hover:bg-[#00FF9C] hover:shadow-[0_0_24px_rgba(57, 255, 20,0.4)]'
                       : 'bg-[#FF3131] text-white border-[#FF3131] hover:bg-[#CC1A1A] hover:shadow-[0_0_24px_rgba(255,49,49,0.4)]'
                     }
                   `}
@@ -635,7 +635,7 @@ export function LogAnalyzer() {
             {loading ? (
               <>
                 <div className="term-scan-bar w-24" />
-                <span className="text-[#F5E642]">Processing logs<span className="animate-cursor-blink">_</span></span>
+                <span className="text-[#39FF14]">Processing logs<span className="animate-cursor-blink">_</span></span>
               </>
             ) : result ? (
               <>
@@ -644,7 +644,7 @@ export function LogAnalyzer() {
                 <span className="text-[#2C2C2C]">|</span>
                 <span className="text-[#4A4A4A]">{result.rows.toLocaleString()} log entries processed</span>
                 <span className="text-[#2C2C2C]">|</span>
-                <span className="text-[#F5E642]">{result.stats?.basicStats?.errorRate?.toFixed(1) ?? '0.0'}% error rate</span>
+                <span className="text-[#39FF14]">{result.stats?.basicStats?.errorRate?.toFixed(1) ?? '0.0'}% error rate</span>
               </>
             ) : anomalyResult ? (
               <>

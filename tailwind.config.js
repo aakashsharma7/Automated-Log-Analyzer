@@ -75,7 +75,7 @@ module.exports = {
           'dim':     '#3A3A3A',
         },
         'bauhaus': {
-          'yellow':  '#F5E642',
+          'yellow':  '#39FF14',
           'amber':   '#FF8C00',
           'green':   '#39FF14',
           'teal':    '#00FF9C',
@@ -153,8 +153,8 @@ module.exports = {
           "100%": { backgroundPosition: "0% 50%" },
         },
         "pulse-yellow": {
-          "0%, 100%": { boxShadow: "0 0 4px rgba(245, 230, 66, 0.4)" },
-          "50%": { boxShadow: "0 0 16px rgba(245, 230, 66, 0.8), 0 0 32px rgba(245, 230, 66, 0.3)" },
+          "0%, 100%": { boxShadow: "0 0 4px rgba(57, 255, 20, 0.4)" },
+          "50%": { boxShadow: "0 0 16px rgba(57, 255, 20, 0.8), 0 0 32px rgba(57, 255, 20, 0.3)" },
         },
         "pulse-green": {
           "0%, 100%": { boxShadow: "0 0 4px rgba(57, 255, 20, 0.4)" },

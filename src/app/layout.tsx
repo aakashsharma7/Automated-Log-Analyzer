@@ -43,7 +43,7 @@ export default function RootLayout({
               <div
                 className="absolute top-0 left-0 w-28 h-28 opacity-80"
                 style={{
-                  background: '#F5E642',
+                  background: '#39FF14',
                   clipPath: 'polygon(0 0, 100% 0, 0 100%)',
                 }}
               />
@@ -61,7 +61,7 @@ export default function RootLayout({
               <div
                 className="absolute top-8 right-32 w-48 h-48 animate-bauhaus-spin opacity-[0.04]"
                 style={{
-                  border: '1px solid #F5E642',
+                  border: '1px solid #39FF14',
                   borderRadius: '50%',
                 }}
               />
@@ -90,7 +90,7 @@ export default function RootLayout({
               {/* Horizontal accent line */}
               <div
                 className="absolute top-0 left-28 right-0 h-px opacity-20"
-                style={{ background: 'linear-gradient(90deg, rgba(245,230,66,0.5), transparent 40%)' }}
+                style={{ background: 'linear-gradient(90deg, rgba(57, 255, 20,0.5), transparent 40%)' }}
               />
             </div>
 
@@ -101,7 +101,7 @@ export default function RootLayout({
               {/* ── Terminal status footer ── */}
               <footer className="relative z-10 border-t border-[#2C2C2C] bg-[#0E0E0E]">
                 {/* Top accent bar */}
-                <div className="h-px w-full" style={{ background: 'linear-gradient(90deg, #F5E642 0%, transparent 40%)' }} />
+                <div className="h-px w-full" style={{ background: 'linear-gradient(90deg, #39FF14 0%, transparent 40%)' }} />
 
                 <div className="px-6 py-4 flex items-center justify-between">
                   <div className="font-mono text-[10px] text-[#3A3A3A] tracking-widest uppercase">
@@ -133,7 +133,7 @@ export default function RootLayout({
                       href="https://www.linkedin.com/in/aakash-sharma-dev/"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-[#F5E642] hover:text-[#FF8C00] transition-colors duration-200"
+                      className="text-[#39FF14] hover:text-[#00FF9C] transition-colors duration-200"
                     >
                       AAKASH SHARMA
                     </a>

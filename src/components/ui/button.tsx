@@ -10,7 +10,7 @@ const buttonVariants = cva(
     "inline-flex items-center justify-center whitespace-nowrap",
     "font-mono text-[11px] font-bold tracking-widest uppercase",
     "transition-all duration-150",
-    "focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#F5E642]",
+    "focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#39FF14]",
     "disabled:pointer-events-none disabled:opacity-40",
     "border",
   ].join(" "),
@@ -19,7 +19,7 @@ const buttonVariants = cva(
       variant: {
         /* Primary — yellow block */
         default:
-          "bg-[#F5E642] text-[#080808] border-[#F5E642] hover:bg-[#FFD700] hover:shadow-[0_0_20px_rgba(245,230,66,0.4)]",
+          "bg-[#39FF14] text-[#080808] border-[#39FF14] hover:bg-[#00FF9C] hover:shadow-[0_0_20px_rgba(57, 255, 20,0.4)]",
 
         /* Destructive — red block */
         destructive:
@@ -27,7 +27,7 @@ const buttonVariants = cva(
 
         /* Outline — terminal ghost */
         outline:
-          "bg-transparent text-[#A8A090] border-[#2C2C2C] hover:border-[#F5E642] hover:text-[#F5E642] hover:bg-[rgba(245,230,66,0.05)]",
+          "bg-transparent text-[#A8A090] border-[#2C2C2C] hover:border-[#39FF14] hover:text-[#39FF14] hover:bg-[rgba(57, 255, 20,0.05)]",
 
         /* Secondary */
         secondary:
@@ -39,11 +39,11 @@ const buttonVariants = cva(
 
         /* Link */
         link:
-          "bg-transparent text-[#F5E642] border-transparent underline-offset-4 hover:underline hover:text-[#FF8C00]",
+          "bg-transparent text-[#39FF14] border-transparent underline-offset-4 hover:underline hover:text-[#00FF9C]",
 
-        /* Premium — yellow gradient */
+        /* Premium — green gradient */
         premium:
-          "bg-gradient-to-r from-[#F5E642] to-[#FF8C00] text-[#080808] border-transparent hover:shadow-[0_0_24px_rgba(245,230,66,0.4)]",
+          "bg-gradient-to-r from-[#39FF14] to-[#00FF9C] text-[#080808] border-transparent hover:shadow-[0_0_24px_rgba(57,255,20,0.4)]",
 
         /* Success — green outline */
         success:
@@ -51,7 +51,7 @@ const buttonVariants = cva(
 
         /* Warning — yellow outline */
         warning:
-          "bg-transparent text-[#F5E642] border-[#F5E642] hover:bg-[rgba(245,230,66,0.08)] hover:shadow-[0_0_16px_rgba(245,230,66,0.3)]",
+          "bg-transparent text-[#39FF14] border-[#39FF14] hover:bg-[rgba(57, 255, 20,0.08)] hover:shadow-[0_0_16px_rgba(57, 255, 20,0.3)]",
 
         /* Glass — now bauhaus surface */
         glass:
