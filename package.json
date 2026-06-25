@@ -19,7 +19,7 @@
   ],
   "scripts": {
     "dev": "next dev",
-    "dev:turbo": "next dev --turbo",
+    "dev:turbo": "next dev --turbopack",
     "build": "next build",
     "build:analyze": "ANALYZE=true next build",
     "start": "next start",
